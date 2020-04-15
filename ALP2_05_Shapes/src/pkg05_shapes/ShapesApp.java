@@ -6,6 +6,7 @@
 package pkg05_shapes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -53,6 +54,11 @@ public class ShapesApp {
             case 7:
                 maxArea();
                 break;
+            case 8:
+                getObjInfo();
+                break;
+            case 9:
+                sortByArea();
             default:
                 System.out.println("Zadana neplatna volba");
         
@@ -63,6 +69,7 @@ public class ShapesApp {
     }
 
     private static void displayMenu() {
+        System.out.println("");
         System.out.println("1. Nový list");
         System.out.println("2. Přidej čtverec");
         System.out.println("3. Přidej kruh");
@@ -70,6 +77,8 @@ public class ShapesApp {
         System.out.println("5. Vypočítej celkovou plochu objektů");
         System.out.println("6. Vypiš objekty");
         System.out.println("7. Najdi objekt s nevětším obvodem");
+        System.out.println("8. Vypis plochu vybraneho utvaru");
+        System.out.println("9. Zobraz objekty podle plochy");
         System.out.println("0. Konec programu");
     }
 
@@ -146,6 +155,33 @@ public class ShapesApp {
             }
         }
         System.out.println("Objekt s největším obvodem je: " + maxShape + " a jeho objem je: " + maxArea);
+    }
+
+    private static void sortByArea() {
+        //zobrazit objekty setridene podle plochy
+        //budu volat Collections.sort , musim zarucit ze shape/rectangle/circle....budou typově kompatibilní s Comparable .. budou obsahovat metodu compareTo
+        //comparable s genericitou !!
+        
+       Collections.sort(shapes);
+        for (Shape s : shapes) {
+            System.out.println(s);   
+        }      
+    }
+
+    private static void getObjInfo() {
+        for (int i = 0; i < shapes.size(); i++) {
+            System.out.println(i + ". " + shapes.get(i).toString());
+        }
+        System.out.println("Zadej ciso objektu");
+        int choice = sc.nextInt();
+        
+        for (int i = 0; i < shapes.size(); i++) {
+            if(choice == i){
+                System.out.println(shapes.get(i).computeArea());
+            }else if( choice > shapes.size()){
+                throw new IllegalArgumentException("Neplatna volba");
+            }
+        }
     }
     
 }

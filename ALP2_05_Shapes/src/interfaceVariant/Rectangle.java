@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package pkg05_shapes;
+
+package interfaceVariant;
 
 /**
  * Nemenny immutable
  * @author helen
  */
-public class Rectangle extends Shape {
+public class Rectangle implements ShapeInterface {
     //data
     private double a;
     private double b;
@@ -45,8 +41,8 @@ public class Rectangle extends Shape {
 
     @Override
     public String toString() {
-        //return "Rectangle{" + "a=" + a + ", b=" + b + '}';
-        return super.toString() + String.format(" a = %2f, b = %2f", a,b);
+        return "Rectangle{" + "a=" + a + ", b=" + b + '}';
+        //return super.toString() + String.format(" a = %2f, b = %2f", a,b);
     }
     
     
