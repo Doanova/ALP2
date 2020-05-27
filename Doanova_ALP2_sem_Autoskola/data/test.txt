@@ -1,0 +1,7 @@
+Nove vysledky
+č. Tvá o.         Správná o.     Výsledek            
+1. a              a              správně             
+2. a              a              správně             
+3. a              a              správně             
+4. a              c              špatně              
+5. a              a              správně             
