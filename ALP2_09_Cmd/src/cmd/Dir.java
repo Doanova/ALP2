@@ -6,6 +6,7 @@
 package cmd;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
@@ -27,9 +28,11 @@ public class Dir extends Command {
             Arrays.sort(files, Comparator.comparingLong(File::lastModified));
             return dirToString(files);            
         } else if(params.length == 3 && params[1].equals("-e")){
-            //TODO
+            files = getDirOfExtention(actualDir.listFiles(), params[2]);
+            return dirToString(files);
         }else if(params.length == 3 && params[1].equals("-s")){
-            //TODO
+            files = getDirOfSize(actualDir.listFiles(), Integer.parseInt(params[2]));
+            return dirToString(files);
         }
         return null;
     }
@@ -46,5 +49,30 @@ public class Dir extends Command {
         }
         return sb.toString();
     }
+   
+        private File[] getDirOfSize(File[] d, int size) {
+        ArrayList<File> files = new ArrayList<File>();
+        for (File file : d) {
+            if (file.length() >= size) {
+                files.add(file);
+            }
+        }
+        File[] fileArray = new File[files.size()];
+        files.toArray(fileArray);
+        return fileArray;
+    }
+
+    private File[] getDirOfExtention(File[] d, String ext) {
+        ArrayList<File> files = new ArrayList<File>();
+        for (File file : d) {
+            if (file.getName().endsWith(ext)) {
+                files.add(file);
+            }
+        }
+        File[] fileArray = new File[files.size()];
+        files.toArray(fileArray);
+        return fileArray;
+    }
+    
     
 }

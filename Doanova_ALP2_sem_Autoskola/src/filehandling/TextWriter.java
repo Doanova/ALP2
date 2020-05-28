@@ -18,14 +18,19 @@ import java.util.List;
  * @author helen
  */
 public class TextWriter extends Writer {
+    /**
+     * Metoda, která vpisuje data do souboru
+     * @param resultFilepath 
+     * @param results - list výsledků
+     * @throws IOException 
+     */
 
     @Override
     public void saveResults(String resultFilepath, List<Result> results) throws IOException {
         File resultFile = new File(dataDirectory, resultFilepath);
-        //try with resources - automaticky zavře soubor i když nastane chyba
-        try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(resultFile, true)))) { //append true
-            //PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out, "Cp1250"), true); //nasteveni kódovaní
+        try(PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(resultFile, true)))) {            
             pw.println("Nove vysledky");
+            pw.println("Email uzivatele:");
             int n = 1;
             String num = "č.";
             String t = "Tvá o.";

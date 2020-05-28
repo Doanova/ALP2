@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app;
+package utils;
 
+import app.Result;
 import java.util.Comparator;
 
 /**
@@ -15,8 +16,10 @@ public class ComparatorByCorrectness implements Comparator<Result> {
 
     @Override
     public int compare(Result o1, Result o2) {
-        return o1.getCorrectnes().compareTo(o2.getCorrectnes());
+        return o1.getCorrectness().compareTo(o2.getCorrectness());
     }
+    
+
 
  
 }

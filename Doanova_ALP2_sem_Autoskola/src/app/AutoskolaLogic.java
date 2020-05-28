@@ -1,5 +1,6 @@
 package app;
 
+import utils.ComparatorByCorrectness;
 import filehandling.BinaryWriter;
 import filehandling.TextWriter;
 import filehandling.Writer;
@@ -16,12 +17,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  *
  * @author helen
  */
-public class AutoskolaLogic {
+public class AutoskolaLogic implements AutoskolaInterface {
 
     //potrebuju list kam ty otazky nacitat - a musi to byt novy datovy typ Question
     private ArrayList<Question> questions = new ArrayList<>();
@@ -34,9 +38,14 @@ public class AutoskolaLogic {
     private Result[] correctness = new Result[5];
 
     //nacitani souboru
+    /**
+     * zde načítám soubor pomocí bufferedReaderu. Oddělovacá znak je ";"
+     * @param fileName - jinymi slovy nameFilpath - cesta k souboru
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void loadQ(String fileName) throws FileNotFoundException, IOException {
         File questFile = new File(System.getProperty("user.dir") + File.separator + "data" + File.separator + fileName);
-        //File questFile = new File("Questions_Answers");
         try (BufferedReader load = new BufferedReader(new FileReader(questFile))) {
             String line;
             while ((line = load.readLine()) != null) {
@@ -47,7 +56,6 @@ public class AutoskolaLogic {
                 String b = parts[3];
                 String c = parts[4];
                 String correct = parts[5];
-                //System.out.println(correct);
                 Question q = new Question(id, question, a, b, c, correct);
                 questions.add(q);
             }
@@ -55,6 +63,9 @@ public class AutoskolaLogic {
         }
     }
 
+    /**
+     * Pomocá randomGeneratoru vybírám otázky, které pak přidám do listu s otázkama, které se vypíšou
+     */
     public void Selection() {
         for (int i = 0; i < 5; i++) {
             int index = randomGenerator.nextInt(questions.size());
@@ -65,6 +76,12 @@ public class AutoskolaLogic {
         //return selectedQuestions;
     }
 
+    /**
+     * Formátovaně vypíši otazku 
+     * @param index
+     * @return 
+     */
+    @Override
     public String printQuestion(int index) {
         StringBuilder sb = new StringBuilder();
 
@@ -76,6 +93,13 @@ public class AutoskolaLogic {
         return sb.toString();
     }
 
+    /**
+     * Zkontroluji jestli uživatel zadal validní vstup, když ano zapíši si jeho odpověď do results
+     * @param answer
+     * @param index
+     * @return 
+     */
+    @Override
     public Boolean getAnswer(String answer, int index) {
         String realCorrect = selectedQuestions.get(index).getCorrect();
         //String realCorrect = checkAnswer(answer,index);
@@ -100,24 +124,39 @@ public class AutoskolaLogic {
         }
     }
 
-//    public void getArrayOfResult(String answer, int index){
-//        String realCorrect =  selectedQuestions.get(index).getCorrect();
-//        Result r = new Result(index, answer, realCorrect);
-//            correctness[index] = r;       
-//}
-    public Instant startMeasureTime() {
-        return start = Instant.now();
+    /**
+     * Metoda, která spustí časomíru
+     * @return 
+     */
+    @Override
+    public void startMeasureTime() {
+        start = Instant.now();
     }
-
-    public Instant endtMeasureTime() {
-        return end = Instant.now();
+    
+    /**
+     * Metoda, která ukončí časomíru
+     * 
+     */
+    @Override
+    public void endtMeasureTime() {
+         end = Instant.now();
     }
-
+    
+    /**
+     * Metoda, která spočítá celkový čas testu
+     * 
+     * @return 
+     */
     public Duration totalTime() {
         timeElapsed = Duration.between(start, end);
         return timeElapsed;
     }
 
+    /**
+     * Formátovaný výpis výsledků
+     * @return 
+     */
+    @Override
     public String getResults() {
         //Collections.sort(results);
         StringBuilder sb = new StringBuilder();
@@ -134,6 +173,11 @@ public class AutoskolaLogic {
         return sb.toString();
     }
 
+    /**
+     * Formátovaný výpis výsledků podle jejich správnosti
+     * @return 
+     */
+    @Override
     public String sortByCorrectness() {
         Arrays.sort(correctness, new ComparatorByCorrectness());
         //Collections.sort(results);
@@ -152,6 +196,11 @@ public class AutoskolaLogic {
         //Collections.sort(results, new ComparatorByCorrectness());
     }
 
+    /**
+     * Formátovaný výpis výsledků seřazených podle jejich origináního id, které je ve vstupním souboru
+     * @return 
+     */
+    @Override
     public String sortById() {
         Collections.sort(idQuestions);
         StringBuilder sb = new StringBuilder();
@@ -162,7 +211,14 @@ public class AutoskolaLogic {
         return sb.toString();
     }
 
+    /**
+     * Metoda pro uložení výsledků do textového a binárního souboru
+     * @param resultFilepath
+     * @throws IOException 
+     */
+    @Override
     public void saveResult(String resultFilepath) throws IOException {
+        
         Writer w;
         if (resultFilepath.endsWith(".txt")) {
             w = new TextWriter();
@@ -173,12 +229,22 @@ public class AutoskolaLogic {
         }
         w.saveResults(resultFilepath, results);
     }
-
-//    public boolean getChoice(String number){
-//        if(number == "A" || number == "B" || number == "C" ){
-//            return true;
-//        }else{
-//            return false;
-//        }
+    
+    @Override
+    public boolean chceckEmail(String email){
+        Pattern p = Pattern.compile("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+        Matcher m = p.matcher(email);
+            if (m.find()) {
+                //String temp = getEmail(email);
+                return true;
+            } else {
+                return false;
+            }
+        
+    }
+    
+//    public String getEmail(String email){
+//        return email;
 //    }
+
 }

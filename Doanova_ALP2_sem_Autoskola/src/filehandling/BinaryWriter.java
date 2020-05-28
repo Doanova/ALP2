@@ -18,6 +18,12 @@ import java.util.List;
  */
 public class BinaryWriter extends Writer{
 
+    /**
+     * Metoda, která vpisuje data do souboru
+     * @param resultFilepath 
+     * @param results - list vásledků
+     * @throws IOException 
+     */
     @Override
     public void saveResults(String resultFilepath, List<Result> results) throws IOException {
         File resultFile = new File(dataDirectory, resultFilepath);
@@ -28,12 +34,7 @@ public class BinaryWriter extends Writer{
                 dos.writeInt(n);
                 dos.writeUTF(result.getAnswer());
                 dos.writeUTF(result.getCorrectAnswer());
-//                int nChars = result.getCorrectAnswer().length(); //simulace writeUTF, uložím počet znaků Stringu až pak String 
-//                dos.writeInt(nChars);
-//                for (int i = 0; i < nChars; i++) {
-//                    dos.writeChar(result.getCorrectAnswer().charAt(i));
-//                }
-                dos.writeUTF(result.getCorrectnes()); 
+                dos.writeUTF(result.getCorrectness()); 
                 n++;
             }
         }

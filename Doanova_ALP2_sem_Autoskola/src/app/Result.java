@@ -28,15 +28,18 @@ public class Result  {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+
     
-    
-    
-    public String getCorrectnes(){
+    /**
+     * Metoda, která vypíše jestli uživatel zadal odpověď správně nebo špatně
+     * @return 
+     */
+    public String getCorrectness(){
         String correctness;
         if(this.answer.equals(this.correctAnswer)){
-            correctness = "spravne";
+            correctness = "Ano";
         }else{
-            correctness = "spatne";
+            correctness = "Ne";
         }
         return correctness;
     }
@@ -53,17 +56,5 @@ public class Result  {
         return String.format("%-15s%-15s%-20s",answer,correctAnswer,correctness);
     }
 
-    
-    
-    
-    
-    
-//    public static void main(String[] args){
-//        Result r = new Result(1,"c","b");
-//        System.out.println(r);
-//    }
-
-
-    
     
 }
