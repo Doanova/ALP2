@@ -1,0 +1,8 @@
+Nove vysledky
+Email uzivatele:
+č. Tvá o.         Správná o.     Výsledek            
+1. a              a              správně             
+2. a              a              správně             
+3. a              c              špatně              
+4. a              b              špatně              
+5. a              c              špatně              

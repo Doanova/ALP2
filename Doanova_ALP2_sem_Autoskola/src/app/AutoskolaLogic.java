@@ -66,7 +66,7 @@ public class AutoskolaLogic implements AutoskolaInterface {
     /**
      * Pomocá randomGeneratoru vybírám otázky, které pak přidám do listu s otázkama, které se vypíšou
      */
-    public void Selection() {
+    public void selection() {                                                   //jmena metod malými písmeny !!!
         for (int i = 0; i < 5; i++) {
             int index = randomGenerator.nextInt(questions.size());
             Question q = questions.get(index);

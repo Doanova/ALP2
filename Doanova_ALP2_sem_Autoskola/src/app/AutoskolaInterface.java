@@ -17,7 +17,7 @@ public interface AutoskolaInterface {
     
     public void loadQ(String fileName) throws FileNotFoundException, IOException;
     
-    public void Selection();
+    public void selection();
     
     public String printQuestion(int index);
     

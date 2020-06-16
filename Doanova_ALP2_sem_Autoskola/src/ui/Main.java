@@ -26,12 +26,10 @@ public class Main {
             System.out.println("Test Autoškola");
             try {
                 try {
-                    a.loadQ("Questions_Answers.txt");
-                    a.Selection();
-                } catch (FileNotFoundException e) {
-                    System.out.println("Zadán špatný soubor");
-                }
-                for (int i = 0; i < 1; i++) {
+                    a.loadQ("Questions_Answers1.txt");
+                    a.selection();
+                
+                for (int i = 0; i < 5; i++) {
                     if (i == 0) {
                         a.startMeasureTime();
                     }
@@ -84,7 +82,7 @@ public class Main {
                 String name;
                 System.out.println("Chceš uložit vysledky jako: ");
                 System.out.println("A) Textovy soubor");
-                System.out.println("B) Textovy soubor");
+                System.out.println("B) Binární soubor");
                 String choice3 = sc.next();
                 if(choice3.equals("A")){
                     System.out.println("zadej jmnéno souboru: ");
@@ -103,7 +101,10 @@ public class Main {
                 if(end.equals("Y")){
                     run = false;
                 }
-               
+               } catch (FileNotFoundException e) {
+                    System.out.println("Zadán špatný soubor");
+                }
+                
             } catch (IOException e) {
                 System.out.println("Chyba při čtení a zápisu");
             }

@@ -24,6 +24,7 @@ public class Help extends Command{
                                + String.format("%-27s %s\n", "cd ..", "Change directory - move to the folder one level higher")
                                + String.format("%-27s %s\n", "mkdir [folder name]", "Create new folders")
                                + String.format("%-27s %s\n", "rename [nameFrom] [nameTo]", "Display help")
+                               + String.format("%-27s %s\n", "tree", "Display tree of files")
                                + String.format("%-27s %s\n", "exit", "Exit cmd");
         return help;
     }
